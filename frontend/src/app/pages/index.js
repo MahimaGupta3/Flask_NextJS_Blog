@@ -5,7 +5,7 @@ export default function Home() {
 
   useEffect(() => {
     // Fetch data from Flask API
-    fetch("http://localhost:5000/api")
+    fetch("http://localhost:2000/api")
       .then((response) => response.json())
       .then((data) => setMessage(data.message))
       .catch((error) => console.error("Error fetching data:", error));
