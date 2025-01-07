@@ -3,9 +3,8 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 from datetime import datetime, timezone
-import pymongo
-import sys
 from pymongo.server_api import ServerApi
+from bson import ObjectId
 
 from db import Connection
 
@@ -27,41 +26,23 @@ def index():
     for document in documents:
         document["_id"] = str(document["_id"])
         records.append(document)
-    # print(records)
     return jsonify(records)
 
-
-@app.route('/post/<post_id>', methods=['GET'])
 def get_post(post_id):
-    try:
-        # Query the MongoDB collection for the post with the specified post_id
-        post = Blog_Post.find_one({"post_id": post_id})
+    post = Blog_Post.find_one({"_id": ObjectId(post_id)})
+    post["_id"] = str(post["_id"])
+    if post is None:
+        abort(404)
+    return post
+
+@app.route('/post/<post_id>')
+def post(post_id):
+    post = get_post(post_id)
+    if post:
+        return jsonify(post)
+    else:
+        return jsonify({'error': 'Post not found'}), 404
         
-        if post:
-            # Remove the MongoDB internal ID field (_id) before returning the result
-            post['_id'] = str(post['_id'])  # Convert the ObjectId to string
-            return jsonify(post), 200
-        else:
-            return jsonify({"message": "Post not found"}), 404
-    except Exception as e:
-        return jsonify({"message": str(e)}), 500
-
-
-
-
-    
-
-# @app.route('/')
-# def index():
-#     try:
-#         db = client.get_database()
-#         print(db)
-#         print("Pinged your deployment. You successfully connected to MongoDB!")
-#     except Exception as e:
-#         print(e)
-#     posts = conn.execute('SELECT * FROM posts').fetchall()
-#     conn.close()
-#     return render_template('index.html', posts=posts)
 
 @app.route('/api', methods=['GET'])
 def get_message():

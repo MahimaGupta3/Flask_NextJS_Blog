@@ -16,9 +16,9 @@ const HomePage = ({ posts }) => {
           <div key={post.post_id}>
             {/* Use Link to navigate to dynamic post page */}
             <Link href={`/post/${post.post_id}`}>
-              <a>
-                <h2 className="text-2xl font-bold">{post.title}</h2>
-              </a>
+
+              <h2 className="text-2xl font-bold">{post.title}</h2>
+
             </Link>
             <p className="text-gray-500">{post.content}</p>
           </div>

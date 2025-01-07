@@ -2,13 +2,12 @@ import React from 'react'
 import Layout from '../components/Layout'
 
 const PostPage = ({ post }) => {
+  console.log(post)
   return (
     <Layout>
-      <article>
         <h1 className="text-3xl font-bold mb-4">{post.Title}</h1>
         <p className="text-gray-500 mb-8">{post.Content}</p>
-        <div className="prose" dangerouslySetInnerHTML={{ __html: post.content }}></div>
-      </article>
+        <div className="prose" dangerouslySetInnerHTML={{ __html: post.Content }}></div>
       <hr className="my-8" />
       <section>
         <h2 className="text-2xl font-bold mb-4">Comments</h2>
