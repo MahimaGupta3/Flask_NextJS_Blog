@@ -14,7 +14,8 @@ const Homepage = async () => {
   }
 
   return (
-    (<Layout>
+    (
+      <Layout>
       <div className="space-y-8">
       <h2 className="text-2xl font-bold">Recent Posts</h2>
 

@@ -17,7 +17,6 @@ export default async function Page({ params }) {
  
   return (
     <>
-      <h1>Post Details</h1>
       <Post post={post} />
     </>
   )
